@@ -24,5 +24,61 @@ class geturl():
            #js_content = f.read()
            #ctx = execjs.compile(js_content)       
            new_pwd = context.getkeyword(synct, params)#ctx.call("get0analysis", synct, params)
-           return new_pwddef geturl_getapp(synct, params):
+           return new_pwd
     
+    #提交相关参数，获取七麦某APP在某关键词下的历史排名
+    def getkeywordHistory(synct, params):
+       data=open('qimai','r',encoding= 'utf8').read()
+       context = js2py.EvalJs()
+       context.execute(data)
+       with open('qimai', encoding='utf-8') as f:     
+           #js_content = f.read()
+           #ctx = execjs.compile(js_content)       
+           new_pwd = context.getkeywordHistory(synct, params)#ctx.call("get0analysis", synct, params)
+           return new_pwd
+           
+           
+           
+    #提交相关参数，获取七麦某关键词的热度
+    def getkeywordhot(synct, params):
+       data=open('qimai','r',encoding= 'utf8').read()
+       context = js2py.EvalJs()
+       context.execute(data)
+       with open('qimai', encoding='utf-8') as f:     
+           #js_content = f.read()
+           #ctx = execjs.compile(js_content)       
+           new_pwd = context.getkeywordhot(synct, params)#ctx.call("get0analysis", synct, params)
+           return new_pwd
+           
+    #提交相关参数，获取七麦某APP的累计评分情况
+    def getRateSum(synct, params):
+       data=open('qimai','r',encoding= 'utf8').read()
+       context = js2py.EvalJs()
+       context.execute(data)
+       with open('qimai', encoding='utf-8') as f:     
+           #js_content = f.read()
+           #ctx = execjs.compile(js_content)       
+           new_pwd = context.getRateSum(synct, params)#ctx.call("get0analysis", synct, params)
+           return new_pwd    
+           
+    #提交相关参数，获取七麦某APP的版本更新时间
+    def getversionanalysis(synct, params):
+       data=open('qimai','r',encoding= 'utf8').read()
+       context = js2py.EvalJs()
+       context.execute(data)
+       with open('qimai', encoding='utf-8') as f:     
+           #js_content = f.read()
+           #ctx = execjs.compile(js_content)       
+           new_pwd = context.getversionanalysis(synct, params)#ctx.call("get0analysis", synct, params)
+           return new_pwd   
+
+    #提交相关参数，获取ios榜单
+    def getrank(synct, params):
+       data=open('qimai','r',encoding= 'utf8').read()
+       context = js2py.EvalJs()
+       context.execute(data)
+       with open('qimai', encoding='utf-8') as f:     
+           #js_content = f.read()
+           #ctx = execjs.compile(js_content)       
+           new_pwd = context.getrank(synct, params)#ctx.call("get0analysis", synct, params)
+           return new_pwd  
