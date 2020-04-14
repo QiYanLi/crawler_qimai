@@ -1,0 +1,28 @@
+import requests, os, execjs, json, js2py,time
+import pandas as pd
+
+class geturl():
+    
+    #提交相关参数，获取七麦搜索关键词后的APP排名
+    def getapp(synct, params):
+       data=open('qimai','r',encoding= 'utf8').read()
+       context = js2py.EvalJs()
+       context.execute(data)
+       with open('qimai', encoding='utf-8') as f:     
+           #js_content = f.read()
+           #ctx = execjs.compile(js_content)       
+           new_pwd = context.getapp(synct, params)#ctx.call("get0analysis", synct, params)
+           return new_pwd
+       
+
+    #提交相关参数，获取七麦APP下关键词覆盖
+    def getkeywords(synct, params):
+       data=open('qimai','r',encoding= 'utf8').read()
+       context = js2py.EvalJs()
+       context.execute(data)
+       with open('qimai', encoding='utf-8') as f:     
+           #js_content = f.read()
+           #ctx = execjs.compile(js_content)       
+           new_pwd = context.getkeyword(synct, params)#ctx.call("get0analysis", synct, params)
+           return new_pwddef geturl_getapp(synct, params):
+    
