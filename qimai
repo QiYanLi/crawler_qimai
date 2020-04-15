@@ -281,3 +281,26 @@ function getkeywordHistory(synct, params) {
     var r0 = v(C(m_str0, b_str));
     return r0;
 };
+
+//获取全部
+function getanalysis(path,synct, params) {
+
+    // 生成时间戳
+    var g = new Date() - 1000 * synct;
+    var e = new Date() - g - 1515125653845;
+    var analy = [];
+    var palist = [];
+
+    for (var key in params) {
+        palist.push(params[key])
+    }
+
+    var mm = palist["sort"]()["join"]("");
+    var mmm = v(mm);
+
+    var m_str0 =mmm + "@#/"+path+"@#" + e + "@#1";
+
+    var b_str = "00000008d78d46a";
+    var r0 = v(C(m_str0, b_str));
+    return r0;
+};
