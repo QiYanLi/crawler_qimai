@@ -17,7 +17,7 @@ class qimai_api():
     url="https://api.qimai.cn/"
     
     def __int__(self,data=open('qimai','r',encoding= 'utf8').read()):
-       self.analysis=open('qimai','r',encoding= 'utf8').read()
+       #self.analysis=open('qimai','r',encoding= 'utf8').read()
        self.data=data
        
     #提交相关参数，获取七麦某APP的版本更新时间
@@ -41,7 +41,7 @@ class qimai_api():
        param=[]
        for k, v in params.items(): 
  	       param.append(str(k)+"="+str(v))
-       url=self.url+"/"+path+"?"+"analysis="+analysis+"&"join(param)
+       url=self.url+path+"?"+"analysis="+analysis+"&"join(param)
        resp = requests.get(url=url, headers=self.headers, verify=False, cookies=mess[1],proxies=proxies,timeout=5)
        html = json.loads(resp.text)
        return html
