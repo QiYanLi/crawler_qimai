@@ -282,7 +282,7 @@ function getkeywordHistory(synct, params) {
     return r0;
 };
 //获取全部
-function getkeywordHistory(path,synct, params) {
+function getanalysis(path,synct, params) {
 
     // 生成时间戳
     var g = new Date() - 1000 * synct;
