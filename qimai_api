@@ -1,6 +1,12 @@
+
+# coding: utf-8
+
+# In[ ]:
+
+
 import requests, os, execjs, json, js2py,time
 import pandas as pd
-
+import random
 class qimai_api():
     headers = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36",
@@ -8,7 +14,11 @@ class qimai_api():
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
     }
     cookies = dict()
-    headers['Cookie']='gr_user_id=ace5fdfe-8cc6-4cc1-9767-b13f2803b95d; grwng_uid=aab60134-4693-4e92-bdb8-f83ea6385296; ada35577182650f1_gr_last_sent_cs1=qm6351855182; qm_check=SxJXQEUSChd2fHd1dRQQeV5EVVwYYhwXZ3h9EHNKUUBYWVNDEAMEAhB9WUZdU0QDdAEBEENEbQVmABRIQ28FbwAZEhkVUVhcU18aChIAHAAcABkHHgAbTQ%3D%3D; PHPSESSID=55rdesc3d26ninhi00ge8iqp10; Hm_lvt_ff3eefaf44c797b33945945d0de0e370=1575960367,1577079841,1578301726,1578535999; ada35577182650f1_gr_session_id=d7081057-539e-4e4a-ba5e-4b22e31075e2; ada35577182650f1_gr_last_sent_sid_with_cs1=d7081057-539e-4e4a-ba5e-4b22e31075e2; ada35577182650f1_gr_session_id_d7081057-539e-4e4a-ba5e-4b22e31075e2=true; synct=1578539619.361; syncd=-1804; Hm_lpvt_ff3eefaf44c797b33945945d0de0e370=1578539622'
+    setcokkie=[ 'gr_user_id=9df195fa-ad22-47d3-bb98-c6bbbcfd7c81; grwng_uid=4dad6e54-34f4-4f4d-80b4-727c9f65ad1c; qm_check=SxJXQEUSChd2fHd1dRQQeV5EVVwYYhwXenQZd0ZZQFhZU0MQBAMHAhB9WUZdU0QDdAEBEENEbQVmABRIQ28FbwAZEhkVUVhcU18aChIAHAAcABkHHgAbTQ%3D%3D; Hm_lvt_ff3eefaf44c797b33945945d0de0e370=1583225549,1583996205,1584324244,1584511560; acw_tc=76b20ff615845901057802570e147a0a55a1aa867aa79fdef34dc97893cb20; PHPSESSID=j7hlgo4m9p0t2jf825tcjjgi57; ada35577182650f1_gr_last_sent_sid_with_cs1=2dd18c1e-38b0-4b4e-a29f-1fd2ddec008c; ada35577182650f1_gr_last_sent_cs1=qm1539154826; ada35577182650f1_gr_session_id=2dd18c1e-38b0-4b4e-a29f-1fd2ddec008c; ada35577182650f1_gr_session_id_2dd18c1e-38b0-4b4e-a29f-1fd2ddec008c=true; synct=1587013771.024; syncd=2548',
+            'gr_user_id=ace5fdfe-8cc6-4cc1-9767-b13f2803b95d; grwng_uid=aab60134-4693-4e92-bdb8-f83ea6385296; ada35577182650f1_gr_last_sent_cs1=qm6351855182; qm_check=SxJXQEUSChd2fHd1dRQQeV5EVVwYYhwXZ3h9EHNKUUBYWVNDEAMEAhB9WUZdU0QDdAEBEENEbQVmABRIQ28FbwAZEhkVUVhcU18aChIAHAAcABkHHgAbTQ%3D%3D; PHPSESSID=55rdesc3d26ninhi00ge8iqp10; Hm_lvt_ff3eefaf44c797b33945945d0de0e370=1575960367,1577079841,1578301726,1578535999; ada35577182650f1_gr_session_id=d7081057-539e-4e4a-ba5e-4b22e31075e2; ada35577182650f1_gr_last_sent_sid_with_cs1=d7081057-539e-4e4a-ba5e-4b22e31075e2; ada35577182650f1_gr_session_id_d7081057-539e-4e4a-ba5e-4b22e31075e2=true; synct=1578539619.361; syncd=-1804; Hm_lpvt_ff3eefaf44c797b33945945d0de0e370=1578539622',
+               'gr_user_id=9df195fa-ad22-47d3-bb98-c6bbbcfd7c81; grwng_uid=4dad6e54-34f4-4f4d-80b4-727c9f65ad1c;  qm_check=SxJXQEUSChd2fHd1dRQQeV5EVVwYYhwXenQZd0ZZQFhZU0MQBAMHAhB9WUZdU0QDdAEBEENEbQVmABRIQ28FbwAZEhkVUVhcU18aChIAHAAcABkHHgAbTQ%3D%3D; Hm_lvt_ff3eefaf44c797b33945945d0de0e370=1583225549,1583996205,1584324244,1584511560; acw_tc=76b20ff615845901057802570e147a0a55a1aa867aa79fdef34dc97893cb20; PHPSESSID=j7hlgo4m9p0t2jf825tcjjgi57; USERINFO=NUBcfJL7CIovRnky6VVF0VFQu1LiuVzyED6TqjjP2qnI7C9x7NgBVKi8smC5wtQBFnzoAcJFdQDfWzaJPWX5TuEdSyDVw2uetAkgRuXnwxL2mXGjQQts5ytKW%2FINhi2leHVgYZLkgKzbShBvMEa%2FGw%3D%3D; ada35577182650f1_gr_last_sent_sid_with_cs1=fc673e42-e416-4274-8cd4-36e4f641318e; ada35577182650f1_gr_last_sent_cs1=yoobingo; ada35577182650f1_gr_cs1=yoobingo; ada35577182650f1_gr_session_id=fc673e42-e416-4274-8cd4-36e4f641318e; ada35577182650f1_gr_session_id_fc673e42-e416-4274-8cd4-36e4f641318e=true; aso_ucenter=4658ATiTyWcb2ol6Elis9ZxsvBpn8d5evR4vK8r2yR3e4YnERO8SNOHAzao; synct=1587026709.631; syncd=3090'
+              ]
+    headers['Cookie']=random.choice(setcokkie)
     url="https://api.qimai.cn"
     
     def __int__(self,data=open('qimai','r',encoding= 'utf8').read()):
@@ -23,16 +33,23 @@ class qimai_api():
         new_pwd = context.getanalysis(path,synct, params)#ctx.call("get0analysis", synct, params)
         return new_pwd    
        
-    def getsynct(self,**proxies):
-        resp = requests.get('https://www.qimai.cn', headers=self.headers, verify=False,proxies=proxies)
-        self.cookies.update(resp.cookies.get_dict())
-        synct = self.cookies.get('synct')
-        
+    def getsynct(self,path,**proxies):
+        if path=='/app/keywordDetail':
+            
+            datas=[{"username":"XX","password":"XX"},
+              {"username":XX,"password":"XX"},]
+            resp = requests.post('https://api.qimai.cn/accountV1/login?analysis=eEcbVwJTX0VeRGYBFwhYXw1adkIHAQkIAAkJCVYBASQXBw%3D%3D', headers=self.headers,data=random.choice(datas) ,verify=False,proxies=proxies)
+            self.cookies.update(resp.cookies.get_dict())
+            synct = self.cookies.get('synct')
+        else:
+            resp = requests.get('https://www.qimai.cn', headers=self.headers,verify=False,proxies=proxies)
+            self.cookies.update(resp.cookies.get_dict())
+            synct = self.cookies.get('synct')
         return [synct,self.cookies]
     
     #提交相关参数，获取七麦搜索关键词后的APP排名
     def getmessage(self,path, params,**proxies):
-        mess=self.getsynct(**proxies)
+        mess=self.getsynct(path,**proxies)
         analysis = self.getanalysis(path,mess[0],params).replace("+","%2B")
         param=[]
         for k, v in params.items(): 
@@ -41,4 +58,3 @@ class qimai_api():
         resp = requests.get(url=url, headers=self.headers, verify=False, cookies=mess[1],proxies=proxies,timeout=5)
         html = json.loads(resp.text)
         return html
-       
