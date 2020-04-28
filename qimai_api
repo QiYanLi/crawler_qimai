@@ -34,7 +34,7 @@ class qimai_api():
         return new_pwd    
        
     def getsynct(self,path,**proxies):
-        if path=='/app/keywordDetail':
+        if path=='/app/keywordDetail' or path== '/app/keywordHistory'::
             
             datas=[{"username":"XX","password":"XX"},
               {"username":XX,"password":"XX"},]
