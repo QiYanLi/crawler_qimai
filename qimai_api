@@ -25,7 +25,7 @@ class qimai_api():
        #self.analysis=open('qimai','r',encoding= 'utf8').read()
        self.data=data
        
-    #提交相关参数，获取七麦某APP的版本更新时间
+    #提交相关参数，获取加密后token
     def getanalysis(self,path,synct, params):
         data=open('qimai','r',encoding= 'utf8').read()
         context = js2py.EvalJs()
@@ -47,7 +47,7 @@ class qimai_api():
             synct = self.cookies.get('synct')
         return [synct,self.cookies]
     
-    #提交相关参数，获取七麦搜索关键词后的APP排名
+    #提交相关参数，获取具体json
     def getmessage(self,path, params,**proxies):
         mess=self.getsynct(path,**proxies)
         analysis = self.getanalysis(path,mess[0],params).replace("+","%2B")
