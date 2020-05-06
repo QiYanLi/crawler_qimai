@@ -36,6 +36,7 @@ class qimai_api():
     def getsynct(self,path,**proxies):
         if path=='/app/keywordDetail' or path== '/app/keywordHistory'::
             
+            #多写些七麦账号密码
             datas=[{"username":"XX","password":"XX"},
               {"username":XX,"password":"XX"},]
             resp = requests.post('https://api.qimai.cn/accountV1/login?analysis=eEcbVwJTX0VeRGYBFwhYXw1adkIHAQkIAAkJCVYBASQXBw%3D%3D', headers=self.headers,data=random.choice(datas) ,verify=False,proxies=proxies)
